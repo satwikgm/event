@@ -53,7 +53,7 @@ public class TicketService {
                             .eventId(confirmTicketReq.getEventId())
                             .userId(confirmTicketReq.getUserId())
                             .seatNumber(confirmTicketReq.getSeatNumber())
-                            .status("SEAT CONFIRMED")
+                            .status("CONFIRMED")
                             .pricePaid(confirmTicketReq.getPrice())
                             .promotionCode(confirmTicketReq.getPromotionCode())
                             .build();

@@ -57,7 +57,6 @@ public class TicketRepository {
                                 Filters.eq("eventId", eventId),
                                 Filters.eq("seatNumber", seatNumber),
                                 Filters.in("status", "CONFIRMED", "RESERVED")
-                        )
-                ).first());
+                        )).first());
     }
 }
