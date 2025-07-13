@@ -23,7 +23,7 @@ public class TicketController {
         return ticketService.reserveTicket(reserveTicketRequest)
                 .map(ticket -> TicketReserveResponse.builder()
                         .message("TICKET RESERVED: " + "Seat Hold Valid for 120 seconds")
-                        .status("SEAT RESERVED")
+                        .status("RESERVED")
                         .build());
     }
 
@@ -33,7 +33,7 @@ public class TicketController {
                 .map(ticket -> TicketConfirmResponse.builder()
                         .ticketId(ticket.getTicketId())
                         .message("TICKET CONFIRMED")
-                        .status("SEAT CONFIRMED")
+                        .status("CONFIRMED")
                         .build());
     }
 

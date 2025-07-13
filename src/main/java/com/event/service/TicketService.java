@@ -58,6 +58,7 @@ public class TicketService {
                             .promotionCode(confirmTicketReq.getPromotionCode())
                             .build();
                     seatBlockService.releaseSeatBlock(confirmTicketReq.getEventId(), confirmTicketReq.getSeatNumber());
+                    // KAFKA
                     return ticketRepository.insertTicket(ticket);
                 }));
     }
