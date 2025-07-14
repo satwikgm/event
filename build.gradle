@@ -27,6 +27,7 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("io.micronaut.redis:micronaut-redis-lettuce")
     implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.kafka:micronaut-kafka")
 }
 
 
