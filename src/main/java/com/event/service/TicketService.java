@@ -4,12 +4,15 @@ import com.event.dto.ConfirmTicketReq;
 import com.event.dto.ReserveTicketRequest;
 import com.event.dto.SeatAvailabilityResponse;
 import com.event.dto.Ticket;
+import com.event.kafka.BookingEvent;
+import com.event.kafka.BookingEventProducer;
 import com.event.repository.TicketRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Singleton
@@ -18,6 +21,8 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final SeatBlockService seatBlockService;
+
+    private final BookingEventProducer eventProducer;
 
     public Mono<String> reserveTicket(ReserveTicketRequest reserveTicketRequest) {
 
@@ -58,7 +63,19 @@ public class TicketService {
                             .promotionCode(confirmTicketReq.getPromotionCode())
                             .build();
                     seatBlockService.releaseSeatBlock(confirmTicketReq.getEventId(), confirmTicketReq.getSeatNumber());
+
                     // KAFKA
+                    BookingEvent event = BookingEvent.builder()
+                            .eventId(confirmTicketReq.getEventId())
+                            .userId(confirmTicketReq.getUserId())
+                            .seatNumber(confirmTicketReq.getSeatNumber())
+                            .ticketId(ticket.getTicketId())
+                            .email("satwiklgm@gmail.com")
+                            .type("CONFIRMED")
+                            .timestamp(LocalDateTime.now())
+                            .build();
+                    eventProducer.send(event);
+
                     return ticketRepository.insertTicket(ticket);
                 }));
     }

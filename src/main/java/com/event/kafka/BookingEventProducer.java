@@ -6,7 +6,5 @@ import io.micronaut.configuration.kafka.annotation.Topic;
 @KafkaClient
 public interface BookingEventProducer {
     @Topic("booking-events")
-//    void send(BookingEvent event);
-    void send(String message);
-    // publish an event after successful booking.
+    void send(BookingEvent event);  // publish an event after successful booking.
 }
